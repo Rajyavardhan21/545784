@@ -1,4 +1,10 @@
+Dear Amarnath,
 
+Greetings from Edureka!
+
+kindly check the line by line explation of the code shared by you.
+
+//////////////////////////////////
 
 getContacts: builder.query({
 query: () => `contacts`,
@@ -13,6 +19,43 @@ body:id
 invalidatesTags:['Contacts']
 
 //////////////////////////////////////////////////////////////////////////////
+Explanation line by line
+//////////////////////////////
+getContacts: builder.query({
+  query: () => `contacts`,
+  providesTags:['Contacts'],
+}),
+
+This creates a new `query` function named `getContacts`.
+`builder.query` is a method in redux-toolkit/query that creates a new query function with the specified options.
+The `query` function returns a string literal `'contacts'`.
+The `providesTags` option is an array of strings that specifies the tags associated with the query results. In this case, the tag is `'Contacts'`. 
+This means that any data returned by the getContacts query will be associated with the 'Contacts' tag in the cache.
+
+//////////////////////////////
+
+deleteContacts: builder.mutation({
+  query: ({id})=>({
+    url:`contacts/${id}`,
+    method: 'DELETE',
+    body:id
+  }),
+  invalidatesTags:['Contacts']
+})
+
+This creates a new mutation function named deleteContacts.
+builder.mutation is a method in redux-toolkit/query that creates a new mutation function with the specified options.
+The `query` function is a function that returns an object containing the HTTP request details.
+The `url` property specifies the URL endpoint for the API request. In this case, it's the id parameter appended to the end of the 'contacts/' string.
+The method property specifies the HTTP method for the API request. In this case, it's DELETE.
+The body property specifies the data to be sent with the API request. In this case, it's the id parameter.
+The invalidatesTags option is an array of strings that specifies the tags associated with the query results that should be invalidated when the mutation is executed. In this case, the tag is 'Contacts'. This means that when the deleteContacts mutation is executed, any data associated with the 'Contacts' tag in the cache will be invalidated, forcing the query to refetch the data from the server the next time it's needed.
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
 
 `providesTags` and `invalidatesTags` are part of the Data Loader API in `redux-toolkit/query` (RTK Query) that helps with cache invalidation and cache updating.
 
@@ -33,3 +76,13 @@ This ensures that the next time getContacts query is executed, it will fetch fre
 Note that `['Contacts']` is an arbitrary value and could be any string that is meaningful to your application. 
 
 It is simply used as a tag to group related data together in the cache.
+
+
+///////////////////////////////////////////////////////////////////////
+I hope this helps! Let me know if you have any further questions.
+///////////////////////////////////////////////////////////////////
+
+
+REgards,
+Rajyavardhan Singh,
+Edureka!
