@@ -1,0 +1,35 @@
+
+
+getContacts: builder.query({
+query: () => `contacts`,
+providesTags:['Contacts'],
+}),
+deleteContacts: builder.mutation({
+query: ({id})=>({
+url:`contacts/${id}`,
+method: 'DELETE',
+body:id
+}),
+invalidatesTags:['Contacts']
+
+//////////////////////////////////////////////////////////////////////////////
+
+`providesTags` and `invalidatesTags` are part of the Data Loader API in `redux-toolkit/query` (RTK Query) that helps with cache invalidation and cache updating.
+
+In the code you provided, `providesTags` is used to specify the tags that will be associated with the data that's returned by the `getContacts`query. 
+
+Tags are a way to identify and group related data in the cache. In this case, `['Contacts']` is used as a tag to group all the contacts data together in the cache.
+
+`invalidatesTags` is used to specify the tags that will be invalidated when a mutation is performed (in this case, `deleteContacts`).
+
+Invalidating a tag will remove all data in the cache that's associated with that tag, forcing the query to refetch the data from the server the next time it's needed.
+
+In this example, when `deleteContacts` mutation is performed,
+
+it invalidates the `'Contacts'` tag, which will remove all data associated with the `getContacts` query from the cache. 
+
+This ensures that the next time getContacts query is executed, it will fetch fresh data from the server rather than using stale data from the cache.
+
+Note that `['Contacts']` is an arbitrary value and could be any string that is meaningful to your application. 
+
+It is simply used as a tag to group related data together in the cache.
